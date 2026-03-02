@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # my applications
     'projects',
     'debug_toolbar',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

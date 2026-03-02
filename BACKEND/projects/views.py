@@ -3,14 +3,10 @@ from django.http import HttpResponse
 # Create your views here.
 # a view function is a func that takes a request and returns a response (request handler) 
 
-def calculate():
-    x = 1
-    y = 2
-    return x
+from rest_framework import generics
+from .models import Project
+from .serializers import ProjectSerializer
 
-def proj(request):
-    # we usually can pull from database
-    # transform data
-    # send somthing (emails, msgs...)
-    calculate()
-    return render(request, 'projects.html', {'name': 'proj1'})
+class ProjectListCreateView(generics.ListCreateAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
