@@ -3,5 +3,5 @@ from . import views
 
 # url configuration
 urlpatterns = [
-    path("pro/", views.do_something)
+    path("pro/", views.proj)
 ]

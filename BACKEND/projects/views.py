@@ -8,7 +8,7 @@ def calculate():
     y = 2
     return x
 
-def do_something(request):
+def proj(request):
     # we usually can pull from database
     # transform data
     # send somthing (emails, msgs...)
