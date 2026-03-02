@@ -20,7 +20,8 @@ import debug_toolbar
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('projects/', include('projects.urls')),
     path('__debug__/', include('debug_toolbar.urls')),
-    path('api/projects/', include('projects.urls')),
+
+    path('', include('projects.urls')), # HTML routes
+    path('api/', include('projects.api_urls')), # API routes
 ]

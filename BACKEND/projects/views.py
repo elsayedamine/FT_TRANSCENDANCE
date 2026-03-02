@@ -10,3 +10,6 @@ from .serializers import ProjectSerializer
 class ProjectListCreateView(generics.ListCreateAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
+
+def index(request):
+    return render(request, 'projects/index.html')
