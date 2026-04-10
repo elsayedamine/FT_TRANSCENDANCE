@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-%c(61odm(+dyf3ddh8lgf5uu@pc&z2+c%zg8#6dzy50t=^l5%*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "backend"]
 
 
 # Application definition
@@ -41,14 +41,21 @@ INSTALLED_APPS = [
     # 'debug_toolbar',
     'projects',
     'users',
+    'logs',
     'rest_framework',
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
     "corsheaders",
+    "drf_spectacular",
+
+    # Added by Imbo
+    "django_prometheus",
 ]
 
 
 MIDDLEWARE = [
+    # first and last for prometheus added by Imbo
+    "django_prometheus.middleware.PrometheusBeforeMiddleware",
     # "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -58,6 +65,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django_prometheus.middleware.PrometheusAfterMiddleware",
+
 ]
 
 from datetime import timedelta
@@ -68,7 +77,8 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_PERMISSION_CLASSES": (
         "rest_framework.permissions.AllowAny",
-    )
+    ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 SIMPLE_JWT = {
@@ -78,6 +88,13 @@ SIMPLE_JWT = {
 
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'FT Transcendence API',
+    'DESCRIPTION': 'Backend API documentation',
+    'VERSION': '1.0.0',
+    'COMPONENT_SPLIT_REQUEST': True,
 }
 
 INTERNAL_IPS = [
